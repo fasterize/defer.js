@@ -1,0 +1,10 @@
+{
+  "name": "lazyjs",
+  "description": "JavaScript lazy loading",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/vvo/lazyjs"
+  },
+  "private": true
+}
