@@ -6,5 +6,8 @@
     "type": "git",
     "url": "http://github.com/vvo/lazyjs"
   },
+  "devDependencies": {
+
+  },
   "private": true
 }
