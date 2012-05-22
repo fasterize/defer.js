@@ -7,7 +7,7 @@
     "url": "http://github.com/vvo/lazyjs"
   },
   "devDependencies": {
-
+    "testling": "0.0.x"
   },
   "private": true
 }
