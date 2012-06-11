@@ -1,0 +1,15 @@
+<html>
+<head>
+  <script>testarray = [0]</script>
+  <script src="./js/document.write.1.js"></script>
+  <script>
+    // we must use \/script http://mathiasbynens.be/notes/etago
+    document.write('<script>testarray.push(2)<\/script>');
+  </script>
+  <script>
+    document.write('<script src="./js/3.js"><\/script>');
+  </script>
+  <script>testarray.push(4)</script>
+</head>
+<body></body>
+</html>
