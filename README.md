@@ -1,21 +1,22 @@
 lazyjs
 ======
 
-## Running tests
+Lazyload javascript using modified google pagespeed deferjs
 
-You need a simple http-server and testling globally.
+
+## Running tests
 
 ```bash
 npm install -g testling http-server
 ```
 
-We will run a local http-server in tests/assets/ that will be tunneled
+We will run a local http-server in tests/assets/ that will be tunneled to testling
 
 * Start your http-server : `http-server tests/assets/`
 * Register an account on http://www.testling.com
-* Register your public key on testling : `curl -u your.name@mail.com -sST ~/.ssh/id_rsa.pub testling.com/tunnel`
-* Open tunnel : `ssh -NR 53985:localhost:8080 your_name_mail_com@tunnel.browserling.com`
-* Launch tests : `curl -u your.name@mail.com -sSNT *.js "testling.com/?browsers=iexplore/8.0,chrome/17.0,firefox/10.0,safari/5.1"`
+* Register your public key on testling : `curl -u you@mail.com -sST ~/.ssh/id_rsa.pub testling.com/tunnel`
+* Open tunnel : `ssh -NR 53985:localhost:8080 your_mail_com@tunnel.browserling.com`
+* Launch tests : `curl -u you@mail.com -sSNT *.js "testling.com/?browsers=iexplore/8.0,chrome/17.0,firefox/10.0,safari/5.1"`
 
 ## Licence
 
