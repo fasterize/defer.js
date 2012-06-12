@@ -1,7 +1,7 @@
-lazyjs
-======
+defer.js
+========
 
-Lazyload javascript using modified google pagespeed deferjs
+Defer javascript using modified google pagespeed deferjs
 
 
 ## Running tests

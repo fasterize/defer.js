@@ -1,10 +1,10 @@
 {
-  "name": "lazyjs",
-  "description": "JavaScript lazy loading",
+  "name": "defer.js",
+  "description": "JavaScript defer",
   "version": "0.0.2",
   "repository": {
     "type": "git",
-    "url": "http://github.com/vvo/lazyjs"
+    "url": "http://github.com/vvo/defer.js"
   },
   "devDependencies": {
     "testling": "0.0.x"
