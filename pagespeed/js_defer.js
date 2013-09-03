@@ -22,7 +22,21 @@
  * @author ksimbili@google.com (Kishore Simbili)
  */
 
-goog.require('pagespeedutils');
+var pagespeedutils = {addHandler:function(elem, eventName, func) {
+  if(elem.addEventListener) {
+    elem.addEventListener(eventName, func, !1)
+  }else {
+    if(elem.attachEvent) {
+      elem.attachEvent("on" + eventName, func)
+    }else {
+      var oldHandler = elem["on" + eventName];
+      elem["on" + eventName] = function() {
+        func.call(this);
+        oldHandler && oldHandler.call(this)
+      }
+    }
+  }
+}};
 
 /**
  * Defer javascript will be executed in two phases. First phase will be for
@@ -349,51 +363,51 @@ deferJsNs.DeferJs.EVENT = {
  * priority scripts execution.
  * @const {string}
  */
-deferJsNs.DeferJs.PRIORITY_PSA_NOT_PROCESSED = 'priority_psa_not_processed';
+deferJsNs.DeferJs.PRIORITY_PSA_NOT_PROCESSED = 'priority_frz_not_processed';
 
 /**
  * Name of the attribute set for the nodes that are not reached so far during
  * scripts execution.
  * @const {string}
  */
-deferJsNs.DeferJs.PSA_NOT_PROCESSED = 'psa_not_processed';
+deferJsNs.DeferJs.PSA_NOT_PROCESSED = 'frz_not_processed';
 
 /**
  * Name of the attribute set for the current node to mark the current location.
  * @const {string}
  */
-deferJsNs.DeferJs.PSA_CURRENT_NODE = 'psa_current_node';
+deferJsNs.DeferJs.PSA_CURRENT_NODE = 'frz_current_node';
 
 /**
  * Name of the attribute to mark the script node for deletion after the
  * execution.
  * @const {string}
  */
-deferJsNs.DeferJs.PSA_TO_BE_DELETED = 'psa_to_be_deleted';
+deferJsNs.DeferJs.PSA_TO_BE_DELETED = 'frz_to_be_deleted';
 
 /**
  * Value for psa dummy script nodes.
  * @const {string}
  */
-deferJsNs.DeferJs.PSA_SCRIPT_TYPE = 'text/psajs';
+deferJsNs.DeferJs.PSA_SCRIPT_TYPE = 'text/frzjs';
 
 /**
  * Value of psa dummmy priority script nodes.
  * @const {string}
  */
-deferJsNs.DeferJs.PRIORITY_PSA_SCRIPT_TYPE = 'text/prioritypsajs';
+deferJsNs.DeferJs.PRIORITY_PSA_SCRIPT_TYPE = 'text/priorityfrzjs';
 
 /**
  * Name of orig_type attribute in deferred script node.
  * @const {string}
  */
-deferJsNs.DeferJs.PSA_ORIG_TYPE = 'pagespeed_orig_type';
+deferJsNs.DeferJs.PSA_ORIG_TYPE = 'frz_orig_type';
 
 /**
  * Name of orig_src attribute in deferred script node.
  * @const {string}
  */
-deferJsNs.DeferJs.PSA_ORIG_SRC = 'pagespeed_orig_src';
+deferJsNs.DeferJs.PSA_ORIG_SRC = 'frz_orig_src';
 
 /**
  * Name of orig_index attribute in deferred script node.
@@ -405,7 +419,7 @@ deferJsNs.DeferJs.PSA_ORIG_INDEX = 'orig_index';
  * Name of the deferred onload attribute.
  * @const {string}
  */
-deferJsNs.DeferJs.PAGESPEED_ONLOAD = 'data-pagespeed-onload';
+deferJsNs.DeferJs.PAGESPEED_ONLOAD = 'data-frz-onload';
 
 /**
  * Add to defer_logs if logs are enabled.
@@ -419,7 +433,7 @@ deferJsNs.DeferJs.prototype.log = function(line, opt_exception) {
       this.logs.push(opt_exception);
       if (typeof(console) != 'undefined' &&
           typeof(console.log) != 'undefined') {
-        console.log('PSA ERROR: ' + line + opt_exception.message);
+        console.log('FRZ ERROR: ' + line + opt_exception.message);
       }
     }
   }
@@ -1323,7 +1337,7 @@ deferJsNs.DeferJs.prototype.addDeferredOnloadListeners = function() {
   var onloadDeferredElements;
   if (document.querySelectorAll) {
     onloadDeferredElements = document.querySelectorAll(
-        '[' + deferJsNs.DeferJs.PAGESPEED_ONLOAD + '][data-pagespeed-loaded]');
+        '[' + deferJsNs.DeferJs.PAGESPEED_ONLOAD + '][data-frz-loaded]');
   }
   for (var i = 0; i < onloadDeferredElements.length; i++) {
     var elem = onloadDeferredElements.item(i);
