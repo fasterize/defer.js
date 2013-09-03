@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <!-- Ensure that onloads in html tags are executed without any errors. -->
+  </head>
+  <body>
+    <script type="text/frzjs" orig_index="0" >
+      var list = [];
+    </script>
+    <script type="text/frzjs" orig_index="1" >
+      list.push(1);
+      list.push(2);
+    </script>
+    <img src="../assets/Puzzle.jpg" data-frz-onload="list.push(3);" onload="var elem=this;if (this==window) elem=document.body;elem.setAttribute('data-frz-loaded', 1);">
+    <script type="text/frzjs" orig_index="2" >
+      setTimeout(function() {
+                 var div = document.createElement('div');
+                 div.id = "listDiv";
+                 div.innerHTML = list.join();
+                 document.body.appendChild(div);
+      }, 3000);
+    </script>
+    <script type="text/javascript" src="../../pagespeed/js_defer.js"></script>
+  </body>
+</html>
