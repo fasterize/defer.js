@@ -1,1 +1,1 @@
-module.exports = require('fs').readFileSync(__dirname + '/pagespeed/js_defer-min.js');
+module.exports = require('fs').readFileSync(__dirname + '/lib/js_defer-min.js');
