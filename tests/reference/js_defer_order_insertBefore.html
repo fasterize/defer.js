@@ -1,5 +1,6 @@
 <html>
   <head>
+    <style id="will-be-removed"></style>
     <title>js_defer example</title>
     <!-- Ensure that the insertion order in the list is maintained when some
     script is added via external file -->
@@ -16,6 +17,11 @@
     </script>
     <script type="text/javascript" src="../assets/js_push3.js">
     </script>
+
+    <script>
+     document.getElementById('will-be-removed').remove();
+    </script>
+
     <div id="listDiv"></div>
     <script type="text/javascript" >
       setTimeout(function() {
