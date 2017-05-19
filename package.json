@@ -9,7 +9,7 @@
   "scripts": { "build" : "./fasterize_build.sh" },
   "author": "Anthony BARRE <anthony.barre87@gmail.com>",
   "private": true,
-  "dependencies": {
+  "devDependencies": {
     "uglifyjs": "^2.4.10"
   }
 }
