@@ -6,10 +6,13 @@
     "type": "git",
     "url": "git://github.com/fasterize/defer.js.git"
   },
-  "scripts": { "build" : "./fasterize_build.sh" },
+  "scripts": {
+    "build": "./fasterize_build.sh"
+  },
   "author": "Anthony BARRE <anthony.barre87@gmail.com>",
   "private": true,
   "devDependencies": {
-    "uglifyjs": "^2.4.10"
+    "uglifyjs": "^2.4.10",
+    "express": "^4.15.3"
   }
 }
