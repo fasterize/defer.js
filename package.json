@@ -1,7 +1,7 @@
 {
   "name": "defer.js",
   "description": "JavaScript defer",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/fasterize/defer.js.git"
@@ -14,11 +14,10 @@
   "author": "Anthony BARRE <anthony.barre87@gmail.com>",
   "private": true,
   "devDependencies": {
-    "uglifyjs": "^2.4.10",
-    "express": "^4.15.3"
     "chai": "^4.1.2",
     "mocha": "^3.5.3",
     "puppeteer": "^0.10.2",
+    "uglify-js": "^3.1.1"
   },
   "engines": {
     "node": "v8.4.0"
