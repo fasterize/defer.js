@@ -141,4 +141,8 @@ describe('deferjs', () => {
   it('should ensure that onloads event is emitted.', test(async (browser) => {
     await testSameBehavior(browser, 'onload_attribute_in_html.html', [1, 2, 3]);
   }));
+
+  it('should not trigger the window.onload if a script is inserted by jquery', test(async (browser) => {
+    await testSameBehavior(browser, 'jquery_append_script.html', 'onload');
+  }));
 });

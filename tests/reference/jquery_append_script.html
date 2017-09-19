@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <!-- Ensure that onloads in html tags are executed without any errors. -->
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+    <script type="application/javascript" >
+      output = '';
+      window.onload = function () {
+        output = 'onload';
+      }
+    </script>
+    <script type="application/javascript" >
+      var node = document.createElement("script");
+      node.async = true;
+      node.src = "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js";
+
+      $(document).find("body").append(node); // it fails, the script is not inserted but fetch in Ajax !!!
+    </script>
+  </body>
+</html>
