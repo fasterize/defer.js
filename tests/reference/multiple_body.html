@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>js_defer example</title>
+    <!-- Ensure that the insertion order in the output is maintained. -->
+  </head>
+  <body>
+    <script type="application/javascript" >
+      var output = [];
+    </script>
+    <script type="application/javascript" >
+      output.push(1);
+    </script>
+    <script type="application/javascript" >
+      output.push(2);
+    </script>
+  </body>
+  <body>
+    <script type="application/javascript" >
+      output.push(3);
+    </script>
+  </body>
+</html>

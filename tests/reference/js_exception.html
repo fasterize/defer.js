@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>js_defer example</title>
+  </head>
+  <body>
+    <script type="application/javascript">
+     var output = [];
+    </script>
+    <script type="application/javascript">
+     output.push(1);
+    </script>
+    <script type="application/javascript" src="../assets/js_defer_error.js"></script>
+    <script type="application/javascript">
+      //Exception
+      Foo.bar();
+    </script>
+    <script type="application/javascript">
+     output.push(2);
+    </script>
+  </body>
+</html>

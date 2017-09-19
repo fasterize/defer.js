@@ -1,0 +1,28 @@
+<html>
+<head>
+  <script type="application/javascript" src="../assets/js/jquery-1.7.2.js"></script>
+</head>
+<body>
+  <script type="application/javascript">
+    var output = [];
+  </script>
+  <script type="application/javascript">
+    $(window).load(function() {
+      output.push('window onload jquery');
+    });
+  </script>
+  <script type="application/javascript">
+    $(document).ready(function() {
+      output.push('dom ready jquery');
+    });
+  </script>
+  <script type="application/javascript">
+    window.addEventListener('load', function () {
+      output.push('window onload');
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+      output.push('dom ready');
+    });
+  </script>
+</body>
+</html>

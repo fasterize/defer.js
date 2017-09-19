@@ -3,38 +3,13 @@
     <title>defer_javascript example</title>
   </head>
   <body>
-    <!-- All Script tags will be deferred until page onload is triggered -->
-    <p>
-    If defer_javascript is enabled, '*'s and images will appear before script
-    text. If not the script text will be interspersed with '*'s and images.
-    </p>
-    <script>
-      function sleep(ms) {
-        var sleep_now = Number(new Date());
-        while(sleep_now+ms>Number(new Date())) { var tmp = sleep_now; }
-      }
-      sleep(2000);
-      var state = 0;
+    <script type="application/javascript">
+      output = [];
     </script>
-    <p>
-      <script src="rewrite_javascript.js" type="text/javascript" id="ext1">
-      </script>
-    </p>
-    <p>*</p>
     <img src="../assets/Puzzle.jpg"><br/>
-    <p>*</p>
-    <script>
-      sleep(2000);
-      document.write('<p>Inline Script 1</p>');
-    </script>
-    <p>*</p>
+    <script type="application/javascript" src="../assets/js_push1.js"></script>
     <img src="../assets/BikeCrashIcn.png"><br/>
-    <p>*</p>
-    <script>
-      sleep(2000);
-      document.write('<p>Inline Script 2</p>');
-    </script>
-    <p>*</p>
+    <script type="application/javascript" src="../assets/js_push2.js"></script>
     <img src="../assets/Cuppa.png"><br/>
     <p>*</p>
   </body>

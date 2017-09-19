@@ -7,12 +7,20 @@
     "url": "git://github.com/fasterize/defer.js.git"
   },
   "scripts": {
-    "build": "./fasterize_build.sh"
+    "build": "./fasterize_build.sh",
+    "dev:test": "mocha ./runner.js tests/test.js",
+    "test": "npm run build && DEFER_FILE=js_defer-min.js mocha --timeout 10000 ./tests/utils/runner.js tests/test.js"
   },
   "author": "Anthony BARRE <anthony.barre87@gmail.com>",
   "private": true,
   "devDependencies": {
     "uglifyjs": "^2.4.10",
     "express": "^4.15.3"
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "puppeteer": "^0.10.2",
+  },
+  "engines": {
+    "node": "v8.4.0"
   }
 }

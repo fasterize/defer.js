@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>js_defer example</title>
+    <!-- Ensure that the insertion order in the output is maintained when some script is inserted on the page via multiple document.write. -->
+  </head>
+  <body>
+    <script type="application/javascript">
+      var output = [];
+    </script>
+    <script type="application/javascript">
+      output.push(1);
+    </script>
+    <script type="application/javascript">
+      document.write('<scr' + 'ipt>' + 'output.push(2);');
+      document.write('<' +'/scr' + 'ipt>');
+    </script>
+    <script type="application/javascript">
+      document.write('<scr' + 'ipt>' + 'output.push(3);' + '<' +'/scr' + 'ipt>');
+    </script>
+    <div id="outputDiv"></div>
+    <script type="application/javascript" >
+      var outputDiv = document.getElementById("outputDiv");
+      outputDiv.innerHTML = output.join();
+    </script>
+  </body>
+</html>

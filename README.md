@@ -6,8 +6,9 @@ Defer javascript using modified google pagespeed deferjs
 
 ## Running tests
 
-The test are done directly in the browser by comparing the defered and defered-min version with the reference version.
-Most tests assert that the order of execution is respected : `1,2,3`
+```
+npm install && npm test
+```
 
 ## Licence
 

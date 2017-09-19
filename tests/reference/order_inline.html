@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>js_defer example</title>
+    <!-- Ensure that the insertion order in the output is maintained. -->
+  </head>
+  <body>
+    <script type="application/javascript" >
+      var output = [];
+    </script>
+    <script type="application/javascript" >
+      output.push(1);
+    </script>
+    <script type="application/javascript" >
+      var s = document.createElement('script');
+      s.text = 'var i=10;';
+      document.body.appendChild(s);
+      if (i == 10) {
+        output.push(2);
+      }
+    </script>
+    <script type="application/javascript" >
+      output.push(3);
+    </script>
+  </body>
+</html>

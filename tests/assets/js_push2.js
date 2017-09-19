@@ -1,1 +1,1 @@
-list.push(2);
+output.push(2);
