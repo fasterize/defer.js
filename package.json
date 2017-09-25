@@ -8,8 +8,8 @@
   },
   "scripts": {
     "build": "./fasterize_build.sh",
-    "dev:test": "mocha ./runner.js tests/test.js",
-    "test": "npm run build && DEFER_FILE=js_defer-min.js mocha --timeout 10000 ./tests/utils/runner.js tests/test.js"
+    "dev:test": "mocha ./tests/utils/runner.js tests/test.js",
+    "test": "npm run build && DEFER_FILE=js_defer-min.js mocha ./tests/utils/runner.js tests/test.js"
   },
   "author": "Anthony BARRE <anthony.barre87@gmail.com>",
   "private": true,
