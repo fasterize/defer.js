@@ -1,0 +1,28 @@
+<html>
+<head>
+  <script type="text/frzjs" frz_orig_src="../assets/js/jquery-1.7.2.js"></script>
+</head>
+<body>
+  <script type="text/frzjs">
+    var output = [];
+  </script>
+  <script type="text/frzjs">
+    $(window).load(function() {
+      output.push('window onload jquery');
+    });
+  </script>
+  <script type="text/frzjs">
+    $(document).ready(function() {
+      output.push('dom ready jquery');
+    });
+  </script>
+  <script type="text/frzjs">
+    window.addEventListener('load', function () {
+      output.push('window onload');
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+      output.push('dom ready');
+    });
+  </script>
+<script type="text/javascript" src="../../lib/js_defer-min.js"></script></body>
+</html>

@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>js_defer example</title>
+  </head>
+  <body>
+    <script type="text/frzjs">
+     var output = [];
+    </script>
+    <script type="text/frzjs">
+     output.push(1);
+    </script>
+    <script type="text/frzjs" frz_orig_src="../assets/js_defer_error.js"></script>
+    <script type="text/frzjs">
+      //Exception
+      Foo.bar();
+    </script>
+    <script type="text/frzjs">
+     output.push(2);
+    </script>
+  <script type="text/javascript" src="../../lib/js_defer-min.js"></script></body>
+</html>

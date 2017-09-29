@@ -15,7 +15,7 @@ describe('deferjs', () => {
     fs.writeFileSync(deferedFile, html);
   }
 
-  async function gotoPage(browser, file) {
+  async function gotoPage(browser, file, waitUntil='load') {
     const jsExceptions = [];
     const requestfailed = [];
     const requests = [];
@@ -32,7 +32,7 @@ describe('deferjs', () => {
       requests.push(request.url);
     });
 
-    await page.goto('file:' + file);
+    await page.goto('file:' + file, {waitUntil});
 
     const output = await page.evaluate(() => {
       return window.output;
@@ -52,6 +52,7 @@ describe('deferjs', () => {
     expect(deferedOutput).to.eql(referenceOutput);
 
     expect(referenceJsExceptions).to.have.lengthOf(jsExceptionsNumber);
+    expect(deferedJsExceptions).to.have.lengthOf(jsExceptionsNumber);
     expect(referenceRequestFailed).to.have.lengthOf(requestFailedNumber);
     expect(deferedRequestFailed).to.eql(referenceRequestFailed);
 
@@ -144,5 +145,15 @@ describe('deferjs', () => {
 
   it('should not trigger the window.onload if a script is inserted by jquery', test(async (browser) => {
     await testSameBehavior(browser, 'jquery_append_script.html', 'onload');
+  }));
+
+  it('should wait to execute script until the window.preventDeferJSStart equals 0', test(async (browser) => {
+    const deferedFile = `${__dirname}/defered/test_preventDeferJSStart.html`;
+
+    const [deferedOutput, deferedJsExceptions, deferedRequestFailed, deferedRequests] = await gotoPage(browser, deferedFile, 'networkidle');
+
+    expect(deferedRequestFailed).to.have.lengthOf(0);
+    expect(deferedJsExceptions).to.have.lengthOf(0);
+    expect(deferedOutput).to.eql([1,2]);
   }));
 });

@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>js_defer example</title>
+    <!-- Ensure that the insertion order in the output is maintained when some script is inserted on the page via multiple document.write. -->
+  </head>
+  <body>
+    <script type="text/frzjs">
+      var output = [];
+    </script>
+    <script type="text/frzjs">
+      output.push(1);
+    </script>
+    <script type="text/frzjs">
+      document.write('<scr' + 'ipt>' + 'output.push(2);');
+      document.write('<' +'/scr' + 'ipt>');
+    </script>
+    <script type="text/frzjs">
+      document.write('<scr' + 'ipt>' + 'output.push(3);' + '<' +'/scr' + 'ipt>');
+    </script>
+    <div id="outputDiv"></div>
+    <script type="text/frzjs" >
+      var outputDiv = document.getElementById("outputDiv");
+      outputDiv.innerHTML = output.join();
+    </script>
+  <script type="text/javascript" src="../../lib/js_defer-min.js"></script></body>
+</html>

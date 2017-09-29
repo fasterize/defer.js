@@ -4,18 +4,18 @@
   </head>
   <body>
     <script src="../assets/jquery.js"></script>
-    <script type="application/javascript" >
+    <script type="text/frzjs" >
       output = '';
       window.onload = function () {
         output = 'onload';
       }
     </script>
-    <script type="application/javascript" >
+    <script type="text/frzjs" >
       var node = document.createElement("script");
       node.async = true;
       node.src = "../assets/jquery-ui.js";
 
       $(document).find("body").append(node); // it fails, the script is not inserted but fetch in Ajax !!!
     </script>
-  </body>
+  <script type="text/javascript" src="../../lib/js_defer-min.js"></script></body>
 </html>

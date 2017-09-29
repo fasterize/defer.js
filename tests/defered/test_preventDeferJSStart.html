@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>js_defer example</title>
+    <!-- Ensure that the insertion order in the output is maintained when some
+    script is added via external file -->
+  </head>
+  <body>
+    <script type="text/javascript">
+      var output;
+      window.preventDeferJSStart = 10;
+      setTimeout(function () {
+        output = [];
+        window.preventDeferJSStart = 0;
+      }, 200);
+    </script>
+    <script type="text/frzjs" frz_orig_src="../assets/js_push1.js">
+    </script>
+    <script type="text/frzjs" frz_orig_src="../assets/js_push2.js">
+    </script>
+  <script type="text/javascript" src="../../lib/js_defer-min.js"></script></body>
+</html>
