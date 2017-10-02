@@ -111,7 +111,7 @@ describe('deferjs', () => {
       "dom ready jquery",
       "dom ready",
       "window onload jquery",
-      "window onload"
+      "complete"
     ]);
   }));
 
@@ -148,7 +148,7 @@ describe('deferjs', () => {
   }));
 
   it('should wait to execute script until the window.preventDeferJSStart equals 0', test(async (browser) => {
-    const deferedFile = `${__dirname}/defered/test_preventDeferJSStart.html`;
+    const deferedFile = `${__dirname}/reference/test_preventDeferJSStart.html`;
 
     const [deferedOutput, deferedJsExceptions, deferedRequestFailed, deferedRequests] = await gotoPage(browser, deferedFile, 'networkidle');
 

@@ -18,7 +18,7 @@
   </script>
   <script type="application/javascript">
     window.addEventListener('load', function () {
-      output.push('window onload');
+      output.push(document.readyState);
     });
     document.addEventListener('DOMContentLoaded', function () {
       output.push('dom ready');
