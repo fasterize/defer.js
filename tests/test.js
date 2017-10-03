@@ -156,4 +156,8 @@ describe('deferjs', () => {
     expect(deferedJsExceptions).to.have.lengthOf(0);
     expect(deferedOutput).to.eql([1,2]);
   }));
+
+  it('should dynamically insert the script with original attribute', test(async (browser) => {
+    await testSameBehavior(browser, 'defer_insertion.html', [1, "../assets/js_push2.js"]);
+  }));
 });
