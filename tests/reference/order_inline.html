@@ -14,12 +14,16 @@
       var s = document.createElement('script');
       s.text = 'var i=10;';
       document.body.appendChild(s);
-      if (i == 10) {
-        output.push(2);
-      }
+      expect(i).to.eql(10);
+      output.push(2);
     </script>
     <script type="application/javascript" >
       output.push(3);
+    </script>
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1,2,3]);
+      });
     </script>
   </body>
 </html>

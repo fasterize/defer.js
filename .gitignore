@@ -5,4 +5,4 @@ node_modules
 *.lock
 *.pid
 .configdump
-tests/defered/*
+tests/tmp/*

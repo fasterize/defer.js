@@ -16,10 +16,10 @@
     <script type="application/javascript" >
       output.push(3);
     </script>
-    <div id="outputDiv"></div>
-    <script type="application/javascript" >
-      var outputDiv = document.getElementById("outputDiv");
-      outputDiv.innerHTML = output.join();
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1,2,3]);
+      });
     </script>
   </body>
 </html>

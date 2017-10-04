@@ -10,10 +10,16 @@
       elt.setAttribute("type", "text/javascript");
       elt.setAttribute("src", '../assets/js_push1.js');
       elt.onload = function() {
-        output.push(elt.getAttribute("src"));
+        elt.getAttribute("src").should.eql("../assets/js_push2.js");
       }
       headElem.appendChild(elt);
+      elt.getAttribute("src").should.eql("../assets/js_push1.js");
       elt.setAttribute("src", "../assets/js_push2.js");
+    </script>
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1]);
+      });
     </script>
   </body>
 </html>

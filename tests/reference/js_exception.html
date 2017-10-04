@@ -12,10 +12,15 @@
     <script type="application/javascript" src="../assets/js_defer_error.js"></script>
     <script type="application/javascript">
       //Exception
-      Foo.bar();
+      FooInline.bar();
     </script>
     <script type="application/javascript">
      output.push(2);
+    </script>
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1,2]);
+      });
     </script>
   </body>
 </html>

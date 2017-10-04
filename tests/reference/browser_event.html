@@ -18,10 +18,16 @@
   </script>
   <script type="application/javascript">
     window.addEventListener('load', function () {
-      output.push(document.readyState);
+      output.push('window load');
+      document.readyState.should.eql('complete');
     });
     document.addEventListener('DOMContentLoaded', function () {
       output.push('dom ready');
+    });
+  </script>
+  <script type="application/javascript">
+    done(function () {
+      expect(output).to.eql([1,2,3]);
     });
   </script>
 </body>

@@ -1,7 +1,7 @@
 <html>
   <head>
     <title>js_defer example</title>
-  <head>
+  </head>
   <body>
     <script type="application/javascript">
      var output = [];
@@ -12,6 +12,11 @@
     <script type="application/javascript" src="../assets/js_defer_404.js"></script>
     <script type="application/javascript">
      output.push(2);
+    </script>
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1,2]);
+      });
     </script>
   </body>
 </html>

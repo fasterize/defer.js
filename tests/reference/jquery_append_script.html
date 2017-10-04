@@ -5,17 +5,19 @@
   <body>
     <script src="../assets/jquery.js"></script>
     <script type="application/javascript" >
-      output = '';
-      window.onload = function () {
-        output = 'onload';
-      }
+      output = [];
     </script>
     <script type="application/javascript" >
       var node = document.createElement("script");
       node.async = true;
-      node.src = "../assets/jquery-ui.js";
+      node.src = "../assets/js_push1.js";
 
       $(document).find("body").append(node); // it fails, the script is not inserted but fetch in Ajax !!!
+    </script>
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1]);
+      });
     </script>
   </body>
 </html>

@@ -11,5 +11,10 @@
       output.push(2);
     </script>
     <img src="../assets/Puzzle.jpg" onload="output.push(3);">
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1,2,3]);
+      });
+    </script>
   </body>
 </html>
