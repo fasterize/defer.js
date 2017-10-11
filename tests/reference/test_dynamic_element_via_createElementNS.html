@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>defer_javascript example</title>
+  </head>
+  <body>
+    <script type="application/javascript">
+      var output = [];
+      var headElem = document.getElementsByTagName("head")[0];
+      elt = document.createElement("script");
+      elt.setAttribute("type", "text/javascript");
+      elt.setAttribute("src", '../assets/js_insertBefore1-NS.js');
+      headElem.appendChild(elt);
+    </script>
+    <script type="application/javascript">
+      window.addEventListener('load', function () {
+        output.push('window load');
+      });
+      done(function () {
+        expect(output).to.eql([1, 'window load']);
+      });
+    </script>
+  </body>
+</html>

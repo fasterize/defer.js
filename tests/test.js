@@ -97,4 +97,8 @@ describe('deferjs', () => {
   it('should dynamically insert the script with original attribute', test(async (browser) => {
     await launcher.testSameBehavior(browser, 'defer_insertion.html', [1, "../assets/js_push2.js"]);
   }));
+
+  it('should trigger the window.onload if a script is inserted by createElementNS', test(async (browser) => {
+    await launcher.testSameBehavior(browser, 'test_dynamic_element_via_createElementNS.html');
+  }));
 });

@@ -15,8 +15,11 @@
       $(document).find("body").append(node); // it fails, the script is not inserted but fetch in Ajax !!!
     </script>
     <script type="application/javascript">
+      window.addEventListener('load', function () {
+        output.push('window load');
+      });
       done(function () {
-        expect(output).to.eql([1]);
+        expect(output).to.eql([1, 'window load']);
       });
     </script>
   </body>
