@@ -101,4 +101,8 @@ describe('deferjs', () => {
   it('should trigger the window.onload if a script is inserted by createElementNS', test(async (browser) => {
     await launcher.testSameBehavior(browser, 'test_dynamic_element_via_createElementNS.html');
   }));
+
+  it('should not trigger the document.onload event', test(async (browser) => {
+    await launcher.testSameBehavior(browser, 'jquery_document_load.html');
+  }));
 });

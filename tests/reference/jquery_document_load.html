@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <!-- Ensure that document onload is not emitted. -->
+  </head>
+  <body>
+    <script src="../assets/jquery.js"></script>
+    <script type="application/javascript" >
+      output = [];
+    </script>
+    <script type="application/javascript" >
+      $(document).load(function() {
+        output.push('document load'); // DOES NOT HAPPEN
+      });
+      window.addEventListener('DOMContentLoaded', function() {
+        output.push('window - DOMContentLoaded - capture'); // 1st
+      }, true);
+      document.addEventListener('DOMContentLoaded', function() {
+        output.push('document - DOMContentLoaded - capture'); // 2nd
+      }, true);
+      document.addEventListener('DOMContentLoaded', function() {
+        output.push('document - DOMContentLoaded - bubble'); // 2nd
+      });
+      window.addEventListener('DOMContentLoaded', function() {
+        output.push('window - DOMContentLoaded - bubble'); // 3rd
+      });
+
+      window.addEventListener('load', function() {
+        output.push('window - load - capture'); // 4th
+      }, true);
+      document.addEventListener('load', function(e) {
+        /* Filter out load events not related to the document */
+        if(['style','script'].indexOf(e.target.tagName.toLowerCase()) < 0)
+          output.push('document - load - capture'); // DOES NOT HAPPEN
+      }, true);
+      document.addEventListener('load', function() {
+        output.push('document - load - bubble'); // DOES NOT HAPPEN
+      });
+      window.addEventListener('load', function() {
+        output.push('window - load - bubble'); // 4th
+      });
+      document.onload = function() {
+        output.push('document - onload'); // DOES NOT HAPPEN
+      };
+    </script>
+    <script type="application/javascript">
+      window.addEventListener('load', function () {
+        output.push('window load');
+      });
+      done(function () {
+        expect(output).to.eql([
+          'window - DOMContentLoaded - capture',
+          'document - DOMContentLoaded - capture',
+          'document - DOMContentLoaded - bubble',
+          'window - DOMContentLoaded - bubble',
+          'window - load - capture',
+          'window - load - bubble',
+          'window load']);
+      });
+    </script>
+  </body>
+</html>
