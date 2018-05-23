@@ -19,7 +19,7 @@
   <script type="application/javascript">
     window.addEventListener('load', function () {
       output.push('window load');
-      document.readyState.should.eql('complete');
+      expect(document.readyState).to.eql('complete');
     });
     document.addEventListener('DOMContentLoaded', function () {
       output.push('dom ready');
@@ -27,7 +27,7 @@
   </script>
   <script type="application/javascript">
     done(function () {
-      expect(output).to.eql([1,2,3]);
+      expect(output).to.eql(["dom ready jquery", "dom ready", "window onload jquery", "window load"]);
     });
   </script>
 </body>

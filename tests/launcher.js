@@ -7,14 +7,17 @@ const deferJSFile = process.env.DEFER_FILE || 'js_defer.js';
 module.exports = {
   testSameBehavior,
   executeTest,
-  generateDeferVersion
-}
+  generateDeferVersion,
+};
 
 function generateDeferVersion(file, deferedFile) {
   let html = fs.readFileSync(file, 'utf-8');
   html = html.replace(/<script type="application\/javascript"/g, '<script type="text/frzjs"');
   html = html.replace(/script type="text\/frzjs" src="/g, 'script type="text/frzjs" frz_orig_src="');
-  html = html.replace(/onload="/g, 'onload="var e=this;if (this==window) e=document.body;e.setAttribute(\'data-frz-loaded\', 1);" data-frz-onload="');
+  html = html.replace(
+    /onload="/g,
+    'onload="var e=this;if (this==window) e=document.body;e.setAttribute(\'data-frz-loaded\', 1);" data-frz-onload="'
+  );
   html = html.replace('</body>', '<script type="text/javascript" src="../../lib/' + deferJSFile + '"></script></body>');
 
   fs.writeFileSync(deferedFile, html);
@@ -24,7 +27,9 @@ function generateDeferVersion(file, deferedFile) {
 
 function generateInstrumentedVersion(file, referenceFile) {
   let html = fs.readFileSync(file, 'utf-8');
-  html = html.replace("</head>", `
+  html = html.replace(
+    '</head>',
+    `
     </head>
     <script src="../../node_modules/chai/chai.js"></script>
     <script>
@@ -45,58 +50,54 @@ function generateInstrumentedVersion(file, referenceFile) {
   fs.writeFileSync(referenceFile, html);
 }
 
-async function gotoPage(browser, file, waitUntil='networkidle') {
+async function gotoPage(browser, file) {
+  const consoleMsg = [];
   const jsExceptions = [];
   const failedRequests = [];
   const requests = [];
   let ended = false;
   const page = await browser.newPage();
-  page.on('requestfailed', (request) => {
-    failedRequests.push(request.url);
+  page.on('request', request => {
+    requests.push(request.url());
   });
 
-  page.on('request', (request) => {
-    requests.push(request.url);
+  page.on('pageerror', error => {
+    jsExceptions.push(error);
   });
 
-  page.on('console', (type, errorMsg, url) => {
-    if (type === 'done') {
+  page.on('console', msg => {
+    if (msg.text() === 'done') {
       ended = true;
     }
-    else {
-      jsExceptions.push(`${url} : ${errorMsg}`);
-    }
   });
 
-  await page.goto('file:' + file, {waitUntil, networkIdleTimeout: 300});
-
-  return [ended, jsExceptions, failedRequests, requests];
+  await page.goto('file:' + file, { waitUntil: 'networkidle0' });
+  jsExceptions.forEach(exception => {
+    throw exception;
+  });
+  return [ended, requests];
 }
 
-async function executeTest(browser, file, ignoreException=false, requestFailedNumber=0) {
-  const [testEnded, jsExceptions, failedRequests, requests] = await gotoPage(browser, file);
-  if (!ignoreException) {
-    if (jsExceptions.length > 0) {
-      jsExceptions.forEach((exception) => {
-        throw new Error(exception);
-      });
-    }
-  }
-
+async function executeTest(browser, file) {
+  const [testEnded, requests] = await gotoPage(browser, file);
   expect(testEnded, `test ${file} didn't ended correctly. Don't forget to call done() at the end`).to.be.true;
-  expect(failedRequests).to.have.lengthOf(requestFailedNumber);
-  return [jsExceptions, requests];
+  return [requests];
 }
 
-async function testSameBehavior(browser, fileName, ignoreException=false, requestFailedNumber=0) {
+async function testSameBehavior(browser, fileName) {
   const referenceFile = `${__dirname}/tmp/reference-${fileName}`;
   const deferedFile = `${__dirname}/tmp/defered-${fileName}`;
 
   generateDeferVersion(`${__dirname}/reference/${fileName}`, deferedFile);
   generateInstrumentedVersion(`${__dirname}/reference/${fileName}`, referenceFile);
 
-  const [referenceJsExceptions,referenceRequests] = await executeTest(browser, referenceFile, ignoreException, requestFailedNumber);
-  const [deferedJsExceptions,deferedRequests] = await executeTest(browser, deferedFile, ignoreException, requestFailedNumber);
-
-  return [referenceJsExceptions, deferedJsExceptions, referenceRequests, deferedRequests];
+  const [referenceRequests] = await executeTest(
+    browser,
+    referenceFile
+  );
+  const [deferedRequests] = await executeTest(
+    browser,
+    deferedFile
+  );
+  return [referenceRequests, deferedRequests];
 }
