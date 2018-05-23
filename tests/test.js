@@ -152,4 +152,10 @@ describe('deferjs', () => {
     })
   );
 
+  it(
+    'should dynamically insert the script with async defer',
+    test(async browser => {
+      await launcher.testSameBehavior(browser, 'defer_async.html');
+    })
+  );
 });

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<script type="application/javascript" src="http://apis.google.com/js/platform.js?onload=renderBadge" async></script>
+<script type="application/javascript" >
+  // renderBadge is a callback of apis.google.com/js/platform.js
+  window.renderBadge = function() {
+    done(function () {
+      expect(window.gapi).to.be.an('object');
+    }, false);
+  };
+</script>
+</body>
+</html>

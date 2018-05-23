@@ -38,15 +38,21 @@ function generateInstrumentedVersion(file, referenceFile) {
         console.error("error", errorMsg, window.location.href);
         console.log("done");
       }
-      function done(assertion) {
-        window.onload = function () {
-          setTimeout(function () {
-            assertion();
-            console.log("done");
-          },100);
+      function done(assertion, waitLoadTime=true) {
+        if (waitLoadTime) {
+          window.onload = function () {
+            setTimeout(function () {
+              assertion();
+              console.log("done");
+            },100);
+          }
+        }
+        else {
+          console.log("done");
         }
       }
-    </script>`);
+    </script>`
+  );
   fs.writeFileSync(referenceFile, html);
 }
 
