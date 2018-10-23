@@ -158,4 +158,11 @@ describe('deferjs', () => {
       await launcher.testSameBehavior(browser, 'defer_async.html');
     })
   );
+
+  it(
+    'should execute scripts with defer attribute after blocking scripts.',
+    test(async browser => {
+      await launcher.testSameBehavior(browser, 'defer_order.html');
+    })
+  );
 });

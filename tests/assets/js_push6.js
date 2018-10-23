@@ -1,0 +1,1 @@
+output.push(6);
