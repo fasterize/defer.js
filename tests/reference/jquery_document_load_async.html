@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>defer_javascript example</title>
+  </head>
+  <body>
+    <script type="application/javascript" src="../assets/jquery.js"></script>
+    <script type="application/javascript" >
+      output = [];
+    </script>
+    <script type="application/javascript" >
+      $(document).ready(function () {
+        output.push('dom content loaded');
+      })
+    </script>
+    <script type="application/javascript" src="../assets/js_push1.js"></script>
+    <script type="application/javascript" src="../assets/js_push2.js" async="async"></script>
+    <script type="application/javascript" src="../assets/js_push3.js" async="false"></script>
+    <script type="application/javascript" src="../assets/js_push4.js"></script>
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1, 4, 'dom content loaded', 2, 3]);
+      }, true);
+    </script>
+    <p>*</p>
+  </body>
+</html>

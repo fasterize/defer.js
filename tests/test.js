@@ -165,4 +165,11 @@ describe('deferjs', () => {
       await launcher.testSameBehavior(browser, 'defer_order.html');
     })
   );
+
+  it(
+    'should execute async scripts after jquery document onload.',
+    test(async browser => {
+      await launcher.testSameBehavior(browser, 'jquery_document_load_async.html');
+    })
+  );
 });
