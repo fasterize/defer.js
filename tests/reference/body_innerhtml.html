@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>defer_javascript example</title>
+  </head>
+  <body>
+    <script type="application/javascript">
+      output = [];
+    </script>
+    <script type="application/javascript">
+     document.body.innerHTML += "<div>blah blah</div>";
+    </script>
+    <script type="application/javascript" src="../assets/js_push1.js"></script>
+    <script type="application/javascript" src="../assets/js_push2.js"></script>
+    <script type="application/javascript">
+      done(function () {
+        expect(output).to.eql([1,2]);
+      });
+    </script>
+  </body>
+</html>

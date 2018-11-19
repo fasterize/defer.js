@@ -172,4 +172,18 @@ describe('deferjs', () => {
       await launcher.testSameBehavior(browser, 'jquery_document_load_async.html');
     })
   );
+
+  it(
+    'should insert inline scripts at the right place.',
+    test(async browser => {
+      await launcher.testSameBehavior(browser, 'insertion_order_async.html');
+    })
+  );
+
+  it(
+    'should load script even when there is body.innerHTML',
+    test(async browser => {
+      await launcher.testSameBehavior(browser, 'body_innerhtml.html');
+    })
+  );
 });
