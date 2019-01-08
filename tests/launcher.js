@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const { test } = require('./utils/browser');
 const fs = require('fs');
+const iconv = require('iconv-lite');
 
 const deferJSFile = process.env.DEFER_FILE || 'js_defer.js';
 
@@ -10,8 +11,9 @@ module.exports = {
   generateDeferVersion,
 };
 
-function generateDeferVersion(file, deferedFile) {
-  let html = fs.readFileSync(file, 'utf-8');
+function generateDeferVersion(file, deferedFile, charset='utf-8') {
+  let buffer = fs.readFileSync(file);
+  let html = iconv.decode(buffer, charset);
   html = html.replace(/<script type="application\/javascript"/g, '<script type="text/frzjs"');
   html = html.replace(/script type="text\/frzjs" src="/g, 'script type="text/frzjs" frz_orig_src="');
   html = html.replace(
@@ -20,13 +22,16 @@ function generateDeferVersion(file, deferedFile) {
   );
   html = html.replace('</body>', '<script type="text/javascript" src="../../lib/' + deferJSFile + '"></script></body>');
 
-  fs.writeFileSync(deferedFile, html);
+  buffer = iconv.encode(html, charset);
+  fs.writeFileSync(deferedFile, buffer);
 
-  generateInstrumentedVersion(deferedFile, deferedFile);
+  generateInstrumentedVersion(deferedFile, deferedFile, charset);
 }
 
-function generateInstrumentedVersion(file, referenceFile) {
-  let html = fs.readFileSync(file, 'utf-8');
+function generateInstrumentedVersion(file, referenceFile, charset='utf-8') {
+  let buffer = fs.readFileSync(file);
+  let html = iconv.decode(buffer, charset);
+
   html = html.replace(
     '</head>',
     `
@@ -53,16 +58,20 @@ function generateInstrumentedVersion(file, referenceFile) {
       }
     </script>`
   );
-  fs.writeFileSync(referenceFile, html);
+  buffer = iconv.encode(html, charset);
+  fs.writeFileSync(referenceFile, buffer);
 }
 
-async function gotoPage(browser, file) {
+async function gotoPage(browser, file, userAgent) {
   const consoleMsg = [];
   const jsExceptions = [];
   const failedRequests = [];
   const requests = [];
   let ended = false;
   const page = await browser.newPage();
+  if (userAgent) {
+    page.setUserAgent(userAgent);
+  }
   page.on('request', request => {
     requests.push(request.url());
   });
@@ -77,33 +86,35 @@ async function gotoPage(browser, file) {
     }
   });
 
-  await page.goto('file:' + file, { waitUntil: 'networkidle0' });
+  await page.goto('file:' + file, { waitUntil: 'networkidle2' });
   jsExceptions.forEach(exception => {
     throw exception;
   });
   return [ended, requests];
 }
 
-async function executeTest(browser, file) {
-  const [testEnded, requests] = await gotoPage(browser, file);
+async function executeTest(browser, file, userAgent) {
+  const [testEnded, requests] = await gotoPage(browser, file, userAgent);
   expect(testEnded, `test ${file} didn't ended correctly. Don't forget to call done() at the end`).to.be.true;
   return [requests];
 }
 
-async function testSameBehavior(browser, fileName) {
+async function testSameBehavior(browser, fileName, userAgent, customCharset) {
   const referenceFile = `${__dirname}/tmp/reference-${fileName}`;
   const deferedFile = `${__dirname}/tmp/defered-${fileName}`;
 
-  generateDeferVersion(`${__dirname}/reference/${fileName}`, deferedFile);
-  generateInstrumentedVersion(`${__dirname}/reference/${fileName}`, referenceFile);
+  generateDeferVersion(`${__dirname}/reference/${fileName}`, deferedFile, customCharset);
+  generateInstrumentedVersion(`${__dirname}/reference/${fileName}`, referenceFile, customCharset);
 
   const [referenceRequests] = await executeTest(
     browser,
-    referenceFile
+    referenceFile,
+    userAgent
   );
   const [deferedRequests] = await executeTest(
     browser,
-    deferedFile
+    deferedFile,
+    userAgent
   );
   return [referenceRequests, deferedRequests];
 }

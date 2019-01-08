@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+    <title>encoding firefox example</title>
+  </head>
+  <body>
+    <div id="output"></div>
+    <script type="application/javascript">
+      document.getElementById('output').innerHTML = "Matière€";
+    </script>
+
+
+    <script type="application/javascript" charset="UTF-8">
+      done(function () {
+        expect(document.getElementById('output').innerHTML).to.eql("Matière€");
+      });
+    </script>
+  </body>
+</html>

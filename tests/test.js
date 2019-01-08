@@ -9,10 +9,7 @@ describe('deferjs', () => {
   it(
     'should defer script execution after images load',
     test(async browser => {
-      const [
-        referenceRequests,
-        deferedRequests,
-      ] = await launcher.testSameBehavior(browser, 'defer_javascript.html');
+      const [referenceRequests, deferedRequests] = await launcher.testSameBehavior(browser, 'defer_javascript.html');
 
       expect(referenceRequests.slice(2)).to.eql([
         `file://${__dirname}/assets/Puzzle.jpg`,
@@ -116,7 +113,7 @@ describe('deferjs', () => {
   it(
     'should trigger the window.onload if a script is inserted by jquery',
     test(async browser => {
-      await launcher.testSameBehavior(browser, 'jquery_append_script.html', true);
+      await launcher.testSameBehavior(browser, 'jquery_append_script.html');
     })
   );
 
@@ -184,6 +181,18 @@ describe('deferjs', () => {
     'should load script even when there is body.innerHTML',
     test(async browser => {
       await launcher.testSameBehavior(browser, 'body_innerhtml.html');
+    })
+  );
+
+  it(
+    'should not change break inlined script in page with custom encoding on firefox',
+    test(async browser => {
+      await launcher.testSameBehavior(
+        browser,
+        'encoding_firefox.html',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:64.0) Gecko/20100101 Firefox/64.0',
+        'iso-8859-15'
+      );
     })
   );
 });
